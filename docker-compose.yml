@@ -13,6 +13,8 @@ services:
     environment:
       - PHP_MEMORY_LIMIT=-1
       - COMPOSER_MEMORY_LIMIT=-1
+    networks:
+      - app-network
   postgres:
     image: postgres:12-alpine
     container_name: idez-postgres
@@ -26,6 +28,11 @@ services:
       - 5432:5432
     volumes:
       - idez-data:/var/lib/postgresql/data:delegated
+    networks:
+      - app-network
 volumes:
   idez-data:
     driver: local
+networks:
+  app-network:
+    driver: bridge
